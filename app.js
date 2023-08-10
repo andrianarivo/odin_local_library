@@ -3,13 +3,15 @@ const createError = require('http-errors');
 const express = require('express');
 
 // Connect to MongoDB Atlas
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://andrianarivodavid:ABEXaT2JnrS7Txaw@cluster0.sjxvp7u.mongodb.net/?retryWrites=true&w=majority";
-main().catch((err) => console.log(err));
+const mongoose = require('mongoose');
+
+mongoose.set('strictQuery', false);
+const mongoDB = 'mongodb+srv://andrianarivodavid:ABEXaT2JnrS7Txaw@cluster0.sjxvp7u.mongodb.net/?retryWrites=true&w=majority';
+
 async function main() {
   await mongoose.connect(mongoDB);
 }
+main().catch((err) => console.error(err));
 
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');

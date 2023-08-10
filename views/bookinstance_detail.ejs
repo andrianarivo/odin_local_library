@@ -1,0 +1,22 @@
+<h1>ID: <%= locals.bookinstance._id %></h1>
+
+<p>
+    <strong>Title:</strong>
+    <a href="<%= locals.bookinstance.book.url %>"><%= locals.bookinstance.book.title %></a>
+</p>
+
+<p><strong>Imprint: </strong><%= bookinstance.imprint %></p>
+
+<p>
+    <strong>Status:</strong>
+    <% if (bookinstance.status === "Available") { %>
+        <span class="text-success"><%= bookinstance.status %></span>
+    <% } else if (bookinstance.status === "Maintenance") { %>
+        <span class="text-danger"><%= bookinstance.status %></span>
+    <% } else { %>
+        <span class="text-warning"><%= bookinstance.status %></span>
+    <% }
+    if (bookinstance.status !== "Available") { %>
+        <p>Due back: <%= bookinstance.due_back_formatted %></p>
+    <% } %>
+</p>

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { DateTime } = require('luxon');
 
 const { Schema } = mongoose;
 
@@ -19,6 +20,10 @@ BookInstanceSchema.virtual('url').get(function handler() {
   // We don't use an arrow function as we'll need the this object
   // eslint-disable-next-line no-underscore-dangle
   return `/catalog/bookinstance/${this._id}`;
+});
+
+BookInstanceSchema.virtual('due_back_formatted').get(function handler() {
+  return DateTime.fromJSDate(this.due_back).toLocaleString(DateTime.DATE_MED);
 });
 
 // Export model

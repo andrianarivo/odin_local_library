@@ -29,14 +29,14 @@ AuthorSchema.virtual('url').get(function handler() {
   return `/catalog/author/${this._id}`;
 });
 
-AuthorSchema.virtual('date_of_birth_formatted').get(function () {
+AuthorSchema.virtual('date_of_birth_formatted').get(function handler() {
   if (this.date_of_birth) {
     return DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED);
   }
   return '...';
 });
 
-AuthorSchema.virtual('date_of_death_formatted').get(function () {
+AuthorSchema.virtual('date_of_death_formatted').get(function handler() {
   if (this.date_of_death) {
     return DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED);
   }

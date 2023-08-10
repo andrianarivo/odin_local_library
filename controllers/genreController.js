@@ -22,14 +22,14 @@ exports.genre_detail = asyncHandler(async (req, res, next) => {
     // No results.
     const err = new Error('Genre not found');
     err.status = 404;
-    return next(err);
+    next(err);
+  } else {
+    res.render('genre_detail', {
+      title: 'Genre Detail',
+      genre,
+      genre_books: booksInGenre,
+    });
   }
-
-  res.render('genre_detail', {
-    title: 'Genre Detail',
-    genre,
-    genre_books: booksInGenre,
-  });
 });
 
 // Display Genre create form on GET.

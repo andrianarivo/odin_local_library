@@ -1,6 +1,7 @@
 const path = require('path');
 const createError = require('http-errors');
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
 
 // Connect to MongoDB Atlas
 const mongoose = require('mongoose');
@@ -23,6 +24,7 @@ const catalogRouter = require('./routes/catalog');
 const app = express();
 
 // view engine setup
+app.use(expressLayouts);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

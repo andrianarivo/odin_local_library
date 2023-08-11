@@ -5,18 +5,24 @@
     <a href="<%= locals.bookinstance.book.url %>"><%= locals.bookinstance.book.title %></a>
 </p>
 
-<p><strong>Imprint: </strong><%= bookinstance.imprint %></p>
+<p><strong>Imprint: </strong><%= locals.bookinstance.imprint %></p>
 
 <p>
     <strong>Status:</strong>
-    <% if (bookinstance.status === "Available") { %>
-        <span class="text-success"><%= bookinstance.status %></span>
-    <% } else if (bookinstance.status === "Maintenance") { %>
-        <span class="text-danger"><%= bookinstance.status %></span>
+    <% if (locals.bookinstance.status === "Available") { %>
+        <span class="text-success"><%= locals.bookinstance.status %></span>
+    <% } else if (locals.bookinstance.status === "Maintenance") { %>
+        <span class="text-danger"><%= locals.bookinstance.status %></span>
     <% } else { %>
-        <span class="text-warning"><%= bookinstance.status %></span>
+        <span class="text-warning"><%= locals.bookinstance.status %></span>
     <% }
-    if (bookinstance.status !== "Available") { %>
-        <p>Due back: <%= bookinstance.due_back_formatted %></p>
+    if (locals.bookinstance.status !== "Available") { %>
+        <p>Due back: <%= locals.bookinstance.due_back_formatted %></p>
     <% } %>
+</p>
+
+<hr />
+<p>
+    <a href="<%= locals.bookinstance.url + '/delete' %>">Delete BookInstance</a> |
+    <a href="<%= locals.bookinstance.url + '/update' %>">Update BookInstance</a>
 </p>

@@ -1,26 +1,7 @@
-<h1>Title: <%= locals.book.title %></h1>
+<h1><%= locals.title %>: <%= locals.book.title %></h1>
 
-<p>
-    <strong>Author:</strong>
-    <a href="<%= locals.book.author.url %>"><%= locals.book.author.name %></a>
-</p>
-
-<p><strong>Summary:</strong> <%= locals.book.summary %></p>
-
-<p><strong>ISBN:</strong> <%= locals.book.isbn %></p>
-
-<p>
-    <strong>Genre:</strong>
-    <% locals.book.genre.forEach((genre, index) => { %>
-        <a href="<%= genre.url %>"><%= genre.name %></a>
-        <% if (index < book.genre.length - 1) { %>
-            |,
-        <% } %>
-    <% }) %>
-</p>
-
-<div style="margin-left:20px;margin-top:20px">
-    <h4>Copies</h4>
+<% if (locals.book_instances.length) { %>
+    <p><strong>Delete the following book instances before attempting to delete this book.</strong></p>
     <% locals.book_instances.forEach((bookinstance) => { %>
         <hr />
         <% if (bookinstance.status === "Available") { %>
@@ -38,11 +19,13 @@
     <% if (!locals.book_instances.length) { %>
         <p>There are no copies of this book in the library.</p>
     <% } %>
-</div>
+<% } else { %>
+    <p>Do you really want to delete this Book?</p>
 
-<hr />
-
-<p>
-    <a href="<%= locals.book.url+'/delete'%>">Delete Book</a> |
-    <a href="<%= locals.book.url+'/update'%>">Update Book</a>
-</p>
+    <form method="POST" action="">
+        <div class="form-group">
+            <input id="bookid" class="form-control" type="hidden" name="bookid" required value="<%= locals.book._id %>" />
+        </div>
+        <button class="btn btn-primary" type="submit">Delete</button>
+    </form>
+<% } %>

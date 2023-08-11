@@ -1,0 +1,12 @@
+<h1><%= locals.title %>: <%= locals.bookinstance._id %></h1>
+
+<p>Book title: <strong><%= locals.bookinstance.book.title %></strong></p>
+
+<p>Do you really want to delete this Book Instance ?</p>
+
+<form method="POST" action="">
+    <div class="form-group">
+        <input id="bookinstanceid" class="form-control" type="hidden" name="bookinstanceid" required value="<%= locals.bookinstance._id %>" />
+    </div>
+    <button class="btn btn-primary" type="submit">Delete</button>
+</form>

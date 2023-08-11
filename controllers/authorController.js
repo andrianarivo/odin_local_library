@@ -117,7 +117,7 @@ exports.author_delete_get = asyncHandler(async (req, res) => {
 });
 
 // Handle Author delete on POST.
-exports.author_delete_post = asyncHandler(async (req, res, next) => {
+exports.author_delete_post = asyncHandler(async (req, res) => {
   // Get details of author and all their books (in parallel)
   const [author, allBooksByAuthor] = await Promise.all([
     Author.findById(req.params.id).exec(),

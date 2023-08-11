@@ -155,12 +155,44 @@ exports.book_create_post = [
 
 // Display book delete form on GET.
 exports.book_delete_get = asyncHandler(async (req, res) => {
-  res.send('NOT IMPLEMENTED: Book delete GET');
+  // Get details of author and all their books (in parallel)
+  const [book, bookInstances] = await Promise.all([
+    Book.findById(req.params.id).exec(),
+    BookInstance.find({ book: req.params.id }).exec(),
+  ]);
+
+  if (book === null) {
+    // No results.
+    res.redirect('/catalog/books');
+  }
+
+  res.render('book_delete', {
+    title: 'Delete Book',
+    book,
+    book_instances: bookInstances,
+  });
 });
 
 // Handle book delete on POST.
 exports.book_delete_post = asyncHandler(async (req, res) => {
-  res.send('NOT IMPLEMENTED: Book delete POST');
+  // Get details of author and all their books (in parallel)
+  const [book, bookInstances] = await Promise.all([
+    Book.findById(req.params.id).exec(),
+    BookInstance.find({ book: req.params.id }).exec(),
+  ]);
+
+  if (bookInstances.length > 0) {
+    // Author has books. Render in same way as for GET route.
+    res.render('book_delete', {
+      title: 'Delete Book',
+      book,
+      book_instances: bookInstances,
+    });
+  } else {
+    // Book has no bookinstances. Delete object and redirect to the list of books.
+    await Book.findByIdAndRemove(req.body.bookid);
+    res.redirect('/catalog/books');
+  }
 });
 
 // Display book update form on GET.
@@ -254,15 +286,19 @@ exports.book_update_post = [
       ]);
 
       // Mark our selected genres as checked.
-      for (const genre of allGenres) {
+      const allGenresChecked = allGenres.map((genre) => {
+        const newGenre = genre;
+        // eslint-disable-next-line no-underscore-dangle
         if (book.genre.indexOf(genre._id) > -1) {
-          genre.checked = 'true';
+          newGenre.checked = 'true';
         }
-      }
+        return newGenre;
+      });
+
       res.render('book_form', {
         title: 'Update Book',
         authors: allAuthors,
-        genres: allGenres,
+        genres: allGenresChecked,
         book,
         errors: errors.array(),
       });

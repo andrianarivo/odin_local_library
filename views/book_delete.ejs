@@ -1,0 +1,31 @@
+<h1><%= locals.title %>: <%= locals.book.title %></h1>
+
+<% if (locals.book_instances.length) { %>
+    <p><strong>Delete the following book instances before attempting to delete this book.</strong></p>
+    <% locals.book_instances.forEach((bookinstance) => { %>
+        <hr />
+        <% if (bookinstance.status === "Available") { %>
+            <span class="text-success"><%= bookinstance.status %></span>
+        <% } else if (bookinstance.status === "Maintenance") { %>
+            <span class="text-danger"><%= bookinstance.status %></span>
+        <% } else { %>
+            <span class="text-warning"><%= bookinstance.status %></span>
+        <% } %>
+        <p><strong>Imprint:</strong> <%= bookinstance.imprint %></p>
+        <% if (bookinstance.status !== "Available") { %>
+            <span>(Due: <%= bookinstance.due_back_formatted %>)</span>
+        <% } %>
+    <% }) %>
+    <% if (!locals.book_instances.length) { %>
+        <p>There are no copies of this book in the library.</p>
+    <% } %>
+<% } else { %>
+    <p>Do you really want to delete this Book?</p>
+
+    <form method="POST" action="">
+        <div class="form-group">
+            <input id="bookid" class="form-control" type="hidden" name="bookid" required value="<%= locals.book._id %>" />
+        </div>
+        <button class="btn btn-primary" type="submit">Delete</button>
+    </form>
+<% } %>

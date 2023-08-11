@@ -29,6 +29,8 @@ const catalogRouter = require('./routes/catalog');
 
 const app = express();
 
+app.enable('trust proxy');
+
 // Set up rate limiter: maximum of twenty requests per minute
 const limiter = RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute

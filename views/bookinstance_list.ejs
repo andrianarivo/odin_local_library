@@ -1,0 +1,22 @@
+<h1><%= locals.title %></h1>
+
+<ul>
+    <% locals.bookinstance_list.forEach((bookinstance) => { %>
+        <li>
+            <a href="<%= bookinstance.url %>"><%= bookinstance.book.title %> : <%= bookinstance.imprint %></a> -
+            <% if (bookinstance.status === "Available") { %>
+                <span class="text-success"><%= bookinstance.status %></span>
+            <% } else if (bookinstance.status === "Maintenance") { %>
+                <span class="text-danger"><%= bookinstance.status %></span>
+            <% } else { %>
+                <span class="text-warning"><%= bookinstance.status %></span>
+            <% }
+            if (bookinstance.status !== "Available") { %>
+                <span>(Due: <%= bookinstance.due_back_formatted %>)</span>
+            <% } %>
+        </li>
+    <% })
+    if (!locals.bookinstance_list.length) { %>
+        <li>There are no book copies in this library</li>
+    <% } %>
+</ul>

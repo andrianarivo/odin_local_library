@@ -1,0 +1,13 @@
+<h1><%= locals.title %></h1>
+
+<ul>
+    <% locals.book_list.forEach((book) => { %>
+      <li>
+          <a href="<%= book.url %>"><%= book.title %></a>
+          | <%= book.author.name %>
+      </li>
+    <% })
+    if (!locals.book_list.length) { %>
+      <li>There are no books.</li>
+    <% } %>
+</ul>

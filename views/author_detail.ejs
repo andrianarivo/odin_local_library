@@ -1,0 +1,24 @@
+<h1>Author: <%= locals.author.name%></h1>
+
+<p><%= locals.author.date_of_birth_formatted %> - <%= locals.author.date_of_death_formatted %></p>
+
+<div style="margin-left:20px;margin-top:20px">
+    <h4>Books</h4>
+    <dl>
+        <% locals.author_books.forEach((book) => { %>
+            <dt>
+                <a href="<%= book.url %>"><%= book.title%></a>
+            </dt>
+            <dd><%= book.summary %></dd>
+        <% })
+        if (!locals.author_books.length) { %>
+            <p>This author has no books</p>
+        <% } %>
+    </dl>
+</div>
+
+<hr />
+<p>
+    <a href="<%= locals.author.url + '/delete' %>">Delete author</a> |
+    <a href="<%= locals.author.url + '/update' %>">Update author</a>
+</p>

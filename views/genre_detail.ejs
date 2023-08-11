@@ -1,0 +1,22 @@
+<h1>Genre: <%= locals.genre.name%></h1>
+
+<div style="margin-left:20px;margin-top:20px">
+    <h4>Books</h4>
+    <dl>
+        <% locals.genre_books.forEach((book) => { %>
+            <dt>
+                <a href="<%= book.url %>"><%= book.title%></a>
+            </dt>
+            <dd><%= book.summary %></dd>
+        <% })
+        if (!locals.genre_books.length) { %>
+            <p>This genre has no books</p>
+        <% } %>
+    </dl>
+</div>
+
+<hr />
+<p>
+    <a href="<%= locals.genre.url + '/delete' %>">Delete genre</a> |
+    <a href="<%= locals.genre.url + '/update' %>">Update genre</a>
+</p>

@@ -1,0 +1,14 @@
+<h1><%= locals.title %></h1>
+<p>Welcome to <em>LocalLibrary</em>, a very basic Express website developed as a tutorial example on the Mozilla Developer Network.</p>
+
+<h1>Dynamic content</h1>
+
+<p>The library has the following record counts:</p>
+
+<ul>
+  <li><strong>Books:</strong> <%= locals.book_count %></li>
+  <li><strong>Copies:</strong> <%= locals.book_instance_count %></li>
+  <li><strong>Copies Available:</strong> <%= locals.book_instance_available_count %></li>
+  <li><strong>Authors:</strong> <%= locals.author_count %></li>
+  <li><strong>Genres:</strong> <%= locals.genre_count %></li>
+</ul>

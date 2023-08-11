@@ -1,0 +1,30 @@
+name: Linters
+
+on: pull_request
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "18.x"
+      - name: Setup ESLint
+        run: |
+          npm install --save-dev eslint@8.x eslint-config-airbnb-base@15.x eslint-plugin-node@11.x eslint-plugin-security@1.x
+          [ -f .eslintrc.yml ] || wget https://gist.githubusercontent.com/andrianarivo/d1d46a2d57486f2a28fb2b8b5be7827d/raw/aeaa8118eebfff0face8ba1b39d20d2187f912be/.eslintrc.yml
+      - name: ESLint Report
+        run: npx eslint .
+  nodechecker:
+    name: node_modules checker
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check node_modules existence
+        run: |
+          if [ -d "node_modules/" ]; then echo -e "\e[1;31mThe node_modules/ folder was pushed to the repo. Please remove it from the GitHub repository and try again."; echo -e "\e[1;32mYou can set up a .gitignore file with this folder included on it to prevent this from happening in the future." && exit 1; fi

@@ -1,0 +1,12 @@
+<h1><%= locals.title %></h1>
+
+<ul>
+    <% locals.genre_list.forEach((genre) => { %>
+        <li>
+            <a href="<%= genre.url %>"><%= genre.name %></a>
+        </li>
+    <% })
+    if (!locals.genre_list.length) { %>
+        <li>There are no genres.</li>
+    <% } %>
+</ul>

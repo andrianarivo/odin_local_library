@@ -1,0 +1,13 @@
+env:
+  browser: true
+  commonjs: true
+  es2021: true
+extends:
+  - airbnb-base
+  - plugin:node/recommended
+  - plugin:security/recommended
+parserOptions:
+  ecmaVersion: latest
+rules:
+  quotes: [error, single]
+  semi: error

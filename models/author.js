@@ -36,11 +36,19 @@ AuthorSchema.virtual('date_of_birth_formatted').get(function handler() {
   return '...';
 });
 
+AuthorSchema.virtual('date_of_birth_yyyy_mm_dd').get(function handler() {
+  return DateTime.fromJSDate(this.date_of_birth).toISODate(); // format 'YYYY-MM-DD'
+});
+
 AuthorSchema.virtual('date_of_death_formatted').get(function handler() {
   if (this.date_of_death) {
     return DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED);
   }
   return '...';
+});
+
+AuthorSchema.virtual('date_of_death_yyyy_mm_dd').get(function handler() {
+  return DateTime.fromJSDate(this.date_of_death).toISODate(); // format 'YYYY-MM-DD'
 });
 
 // Export model

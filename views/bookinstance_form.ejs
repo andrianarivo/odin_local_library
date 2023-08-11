@@ -10,14 +10,14 @@
               return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
             })
             book_list.forEach((book) => { %>
-                <option value="<%= book._id %>" <%= locals.selected_book===book._id.toString() ? 'selected' : '' %>><%= book.title %></option>
+                <option value="<%= book._id %>" <%= locals.selected_book.toString()===book._id.toString() ? 'selected' : '' %>><%= book.title %></option>
             <% })
             %>
         </select>
     </div>
     <div class="form-group">
         <label for="imprint">Imprint:</label>
-        <input id="imprint" class="form-control" type="text" placeholder="Publisher and date information" name="imprint" required value="<%= undefined===locals.bookinstance ? '' : locals.bookinstance.imprint %>"
+        <input id="imprint" class="form-control" type="text" placeholder="Publisher and date information" name="imprint" required value="<%= undefined===locals.bookinstance ? '' : locals.bookinstance.imprint %>" />
     </div>
     <div class="form-group">
         <label for="due_back">Date when book available:</label>
@@ -26,10 +26,10 @@
     <div class="form-group mb-3">
         <label for="status">Status:</label>
         <select id="status" class="form-control" name="status" required>
-            <option value="Maintenance" selected="<%= undefined===locals.bookinstance || locals.bookinstance.status !=='Maintenance' ? false : 'selected'%>">Maintenance</option>
-            <option value="Available" selected="<%= undefined===locals.bookinstance || locals.bookinstance.status !=='Available' ? false : 'selected'%>">Available</option>
-            <option value="Loaned" selected="<%= undefined===locals.bookinstance || locals.bookinstance.status !=='Loaned' ? false : 'selected'%>">Loaned</option>
-            <option value="Reserved" selected="<%= undefined===locals.bookinstance || locals.bookinstance.status !=='Reserved' ? false : 'selected'%>">Reserved</option>
+            <option value="Maintenance" <%= undefined===locals.bookinstance || locals.bookinstance.status !=='Maintenance' ? '' : 'selected' %>>Maintenance</option>
+            <option value="Available" <%= undefined===locals.bookinstance || locals.bookinstance.status !=='Available' ? '' : 'selected' %>>Available</option>
+            <option value="Loaned" <%= undefined===locals.bookinstance || locals.bookinstance.status !=='Loaned' ? '' : 'selected' %>>Loaned</option>
+            <option value="Reserved" <%= undefined===locals.bookinstance || locals.bookinstance.status !=='Reserved' ? '' : 'selected' %>>Reserved</option>
         </select>
     </div>
     <button class="btn btn-primary" type="submit">Submit</button>

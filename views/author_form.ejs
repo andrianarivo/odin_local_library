@@ -10,10 +10,10 @@
     </div>
     <div class="form-group mb-3">
         <label for="date_of_birth">Date of birth:</label>
-        <input id="date_of_birth" class="form-control" type="date" name="date_of_birth" value="<%= undefined===locals.author ? '' : locals.author.date_of_birth %>"/>
+        <input id="date_of_birth" class="form-control" type="date" name="date_of_birth" value="<%= undefined===locals.author ? '' : locals.author.date_of_birth_yyyy_mm_dd %>"/>
 
         <label for="date_of_death">Date of death:</label>
-        <input id="date_of_death" class="form-control" type="date" name="date_of_death" value="<%= undefined===locals.author ? '' : locals.author.date_of_death %>"/>
+        <input id="date_of_death" class="form-control" type="date" name="date_of_death" value="<%= undefined===locals.author ? '' : locals.author.date_of_death_yyyy_mm_dd %>"/>
     </div>
     <button class="btn btn-primary" type="submit">Submit</button>
 </form>

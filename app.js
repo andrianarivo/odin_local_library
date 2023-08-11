@@ -2,17 +2,22 @@ const path = require('path');
 const createError = require('http-errors');
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const debug = require('debug')('app');
+const compression = require('compression');
+const helmet = require('helmet');
 
 // Connect to MongoDB Atlas
 const mongoose = require('mongoose');
 
 mongoose.set('strictQuery', false);
-const mongoDB = 'mongodb+srv://andrianarivodavid:ABEXaT2JnrS7Txaw@cluster0.sjxvp7u.mongodb.net/?retryWrites=true&w=majority';
+// Set up mongoose connection
+const devDbUrl = 'mongodb+srv://andrianarivodavid:ABEXaT2JnrS7Txaw@cluster0.sjxvp7u.mongodb.net/test?retryWrites=true&w=majority';
+const mongoDB = process.env.MONGODB_URI || devDbUrl;
 
 async function main() {
   await mongoose.connect(mongoDB);
 }
-main().catch((err) => console.error(err));
+main().catch((err) => debug(err));
 
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -22,6 +27,28 @@ const usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog');
 
 const app = express();
+
+const RateLimit = require('express-rate-limit');
+
+// Set up rate limiter: maximum of twenty requests per minute
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
+
+// Add helmet to the middleware chain.
+// Set CSP headers to allow our Bootstrap and Jquery to be served
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      'script-src': ['\'self\'', 'cdn.jsdelivr.net'],
+    },
+  }),
+);
+
+app.use(compression()); // Compress all routes
 
 // view engine setup
 app.use(expressLayouts);

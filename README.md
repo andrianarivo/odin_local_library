@@ -68,7 +68,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://odinlocallibrary-production.up.railway.app/catalog)
+- [Live Demo Link](https://local-library-david.fly.dev/catalog)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
